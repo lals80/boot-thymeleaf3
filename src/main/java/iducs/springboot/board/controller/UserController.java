@@ -27,17 +27,25 @@ public class UserController {
 	@Autowired UserService userService; 
 	// 의존성 주입(Dependency Injection)
 	// @Component, @Controller, @Repository, @Service 표시된 클래스형 빈 객체를 스프링이 스캔하여 등록하고, @Autowired 등 요청시 주입 	
-	
+
 	@PostMapping("")
 	public String createUser(@Valid User formUser, Model model) {
 		userService.saveUser(formUser); 
 		model.addAttribute("user", formUser);
+		
 		return "redirect:/users";
 	}	
 	@GetMapping("")
 	public String getAllUser(Model model, HttpSession session) {
 		model.addAttribute("users", userService.getUsers());
-		return "/users/list";
+		
+		if (session.getAttribute("user") == null) {
+			return "/index";
+		}
+		else {
+			return "/users/list";
+		}
+
 	}	
 	@GetMapping("/{id}")
 	public String getUserById(@PathVariable(value = "id") Long id, Model model) {
