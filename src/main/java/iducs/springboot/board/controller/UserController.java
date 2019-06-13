@@ -34,7 +34,7 @@ public class UserController {
 		userService.saveUser(formUser); 
 		model.addAttribute("user", formUser);
 		
-		return "redirect:/users";
+		return "redirect:/users/register-success";
 	}	
 	@GetMapping("")
 	public String getAllUser(Model model, HttpSession session) {
@@ -70,10 +70,11 @@ public class UserController {
 		return "/users/info";
 	}	
 	@DeleteMapping("/{id}")
-	public String deleteUserById(@PathVariable(value = "id") Long id, @Valid User formUser, Model model) {
+	public String deleteUserById(@PathVariable(value = "id") Long id, @Valid User formUser, Model model, HttpSession session) {
 		userService.deleteUser(formUser);
 		model.addAttribute("name", formUser.getName());
-		return "/users/withdrawal";
+		session.invalidate();
+		return "redirect:/";
 	}
 	
 	/*

@@ -1,0 +1,51 @@
+<!Doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<th:block th:include="fragments/header"></th:block>
+</head>
+<body>
+	<th:block th:include="fragments/nav"></th:block>  
+	<!-- breadcrumb start-->
+    <section class="breadcrumb breadcrumb_bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb_iner text-center">
+                        <div class="breadcrumb_iner_item">
+							<h2>회원가입 완료</h2>
+                            <p>Home <span>//</span>Login_success</p>
+                        </div>				
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+	<!-- End banner Area -->
+	
+	<div class="whole-wrap">
+		<div class="container box_1170">
+
+			<div class="section-top-border">
+				<div class="row">
+					<div class="col-lg-2 col-md-2 mt-sm-30">
+					</div>
+					<div class="col-lg-8 col-md-8">
+						<h1 class="mb-30">가입을 환영합니다!!</h1>
+						<div class="form-group mt-3">
+				              <a href="/"><button type="submit" class="button button-contactForm btn_4">
+				              	홈으로</button></a>
+				            </div>
+					</div>
+					<div class="col-lg-2 col-md-2 mt-sm-30">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<th:block th:include="fragments/footer"></th:block> 
+</body>
+
+</html>
