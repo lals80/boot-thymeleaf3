@@ -54,6 +54,17 @@ public class QuestionServiceImpl implements QuestionService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public List<Question> getQuestionsByTitle(String title) {
+		List<QuestionEntity> entities = repository.findAll(new Sort(Sort.Direction.ASC, "title"));
+		
+		List<Question> questions = new ArrayList<Question>();
+		for(QuestionEntity entity : entities) {
+			Question question = entity.buildDomain();
+			questions.add(question);
+		}
+		return questions;
+	}
 
 	@Override
 	public void saveQuestion(Question question) {

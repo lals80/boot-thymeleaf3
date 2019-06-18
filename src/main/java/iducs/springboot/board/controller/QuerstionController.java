@@ -38,6 +38,14 @@ public class QuerstionController {
 		return "/questions/list"; 
 	}	
 	
+	@GetMapping("/title")
+	public String getAllUserByTitle(Model model, HttpSession session, String title) {
+
+		List<Question> questions = questionService.getQuestionsByTitle(title);
+		model.addAttribute("questions", questions);
+		return "/questions/list"; 
+	}
+	
 	@PostMapping("")
 	// public String createUser(Question question, Model model, HttpSession session) {
 	public String createUser(String title, String contents, Model model, HttpSession session) {
@@ -63,11 +71,14 @@ public class QuerstionController {
 	public String getUpdateForm(@PathVariable(value = "id") Long id, Model model) {
 		Question question = questionService.getQuestionById(id);
 		model.addAttribute("question", question);
-		return "/questions/info";
+		return "/questions/edit2";
 	}
 	@PutMapping("/{id}")
 	public String updateQuestionById(@PathVariable(value = "id") Long id, String title, String contents, Model model) {
+		System.out.println("asdfasdf");
 		Question question = questionService.getQuestionById(id);
+		question.setContents(contents);
+		question.setTitle(title);
 		questionService.updateQuestion(question);		
 		return "redirect:/questions/" + id;
 	}
@@ -76,6 +87,6 @@ public class QuerstionController {
 		Question question = questionService.getQuestionById(id);
 		questionService.deleteQuestion(question);
 		model.addAttribute("userId", question.getWriter().getUserId());
-		return "/questions/withdrawal";
+		return "redirect:/questions/";
 	}
 }
