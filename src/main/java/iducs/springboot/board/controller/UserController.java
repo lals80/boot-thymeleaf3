@@ -41,10 +41,10 @@ public class UserController {
 		model.addAttribute("users", userService.getUsers());
 		User sessionUser = (User) session.getAttribute("user");
 		if (HttpSessionUtils.isLogined(sessionUser)) {
-			return "redirect:/users/login-form";
+			return "login.html";
 		}
 		else {
-			return "/users/list";
+			return "chatlist.html";
 		}
 	}	
 	@GetMapping("/{id}")
@@ -67,14 +67,14 @@ public class UserController {
 		userService.updateUser(user);		
 		model.addAttribute("user", user);
 		session.setAttribute("user", user);
-		return "/users/info";
-	}	
+		return "updateuser.html";
+	}
 	@DeleteMapping("/{id}")
 	public String deleteUserById(@PathVariable(value = "id") Long id, @Valid User formUser, Model model, HttpSession session) {
 		userService.deleteUser(formUser);
 		model.addAttribute("name", formUser.getName());
-		session.invalidate();
-		return "redirect:/";
+			session.invalidate();
+			return "redirect:/";
 	}
 	
 	/*

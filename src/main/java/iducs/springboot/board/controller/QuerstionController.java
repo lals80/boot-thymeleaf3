@@ -46,6 +46,14 @@ public class QuerstionController {
 		return "/questions/list"; 
 	}
 	
+	@GetMapping("/writer")
+	public String getAllUserByWriter(Model model, HttpSession session, String writer) {
+
+		List<Question> questions = questionService.getQuestionsByUser(writer);
+		model.addAttribute("questions", questions);
+		return "/questions/list"; 
+	}
+	
 	@PostMapping("")
 	// public String createUser(Question question, Model model, HttpSession session) {
 	public String createUser(String title, String contents, Model model, HttpSession session) {

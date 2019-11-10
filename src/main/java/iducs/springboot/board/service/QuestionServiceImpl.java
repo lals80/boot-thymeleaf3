@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import iducs.springboot.board.domain.Answer;
 import iducs.springboot.board.domain.Question;
 import iducs.springboot.board.domain.User;
+import iducs.springboot.board.entity.AnswerEntity;
 import iducs.springboot.board.entity.QuestionEntity;
 import iducs.springboot.board.entity.UserEntity;
 import iducs.springboot.board.repository.QuestionRepository;
@@ -24,6 +26,12 @@ public class QuestionServiceImpl implements QuestionService {
 	public Question getQuestionById(long id) {
 		QuestionEntity entity = repository.findById(id).get();
 		Question question = entity.buildDomain();
+		
+		List<Answer> answerList = new ArrayList<Answer>();
+		for(AnswerEntity answerEntity : entity.getAnswers())
+		answerList.add(answerEntity.buildDomain());
+		question.setAnswers(answerList);
+		
 		return question;
 	}
 
@@ -45,8 +53,14 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Override
 	public List<Question> getQuestionsByUser(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		List<QuestionEntity> entities = repository.findAll(new Sort(Sort.Direction.ASC, "writer.userId"));
+		
+		List<Question> questions = new ArrayList<Question>();
+		for(QuestionEntity entity : entities) {
+			Question question = entity.buildDomain();
+			questions.add(question);
+		}
+		return questions;
 	}
 
 	@Override

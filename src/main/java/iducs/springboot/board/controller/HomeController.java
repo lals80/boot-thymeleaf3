@@ -49,6 +49,7 @@ public class HomeController {
 	public String registerSuccess(Model model) {
 		return "/users/register_success";
 	}
+	
 	@PostMapping("/users/login")
 	public String loginUser(@Valid User user, HttpSession session) {
 		System.out.println("login process : ");
